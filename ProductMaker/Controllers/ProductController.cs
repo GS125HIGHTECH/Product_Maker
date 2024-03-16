@@ -13,5 +13,19 @@ namespace ProductMaker.Controllers
 
             return View(products.GetAllProducts());
         }
+
+        public IActionResult SearchResults(string searchTerm) 
+        { 
+            ProductsDAO products = new ProductsDAO();
+
+            List<ProductModel> productList = products.SearchProducts(searchTerm);
+
+            return View("index", productList);
+        }
+
+        public IActionResult SearchForm() 
+        {
+            return View();
+        }
     }
 }
