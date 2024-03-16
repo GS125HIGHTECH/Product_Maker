@@ -1,6 +1,6 @@
 ﻿using ProductMaker.Models;
 
-namespace ProductMaker.Controllers.Services
+namespace ProductMaker.Services
 {
     public interface IProductDataService
     {

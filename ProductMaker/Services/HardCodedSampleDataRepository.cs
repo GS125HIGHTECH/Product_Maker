@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using ProductMaker.Models;
 
-namespace ProductMaker.Controllers.Services
+namespace ProductMaker.Services
 {
     public class HardCodedSampleDataRepository : IProductDataService
     {
@@ -14,7 +14,7 @@ namespace ProductMaker.Controllers.Services
         public List<ProductModel> GetAllProducts()
         {
 
-            if(productsList.Count == 0)
+            if (productsList.Count == 0)
             {
                 for (int i = 0; i < 100; i++)
                 {

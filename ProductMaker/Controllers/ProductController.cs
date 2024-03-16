@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc;
-using ProductMaker.Controllers.Services;
 using ProductMaker.Models;
+using ProductMaker.Services;
 
 namespace ProductMaker.Controllers
 {
@@ -9,8 +9,9 @@ namespace ProductMaker.Controllers
     {
         public IActionResult Index()
         {
-            HardCodedSampleDataRepository hardCodedSampleDataRepository = new HardCodedSampleDataRepository();
-            return View(hardCodedSampleDataRepository.GetAllProducts());
+            ProductsDAO products = new ProductsDAO();
+
+            return View(products.GetAllProducts());
         }
     }
 }
