@@ -12,7 +12,7 @@ namespace ProductMaker.Models
         [DataType(DataType.Currency)]
         [DisplayName("Cost")]
         public required decimal Price { get; set; }
-        [DisplayName("What you get...")]
+        [DisplayName("Description")]
         public required string Description { get; set; }
     }
 }

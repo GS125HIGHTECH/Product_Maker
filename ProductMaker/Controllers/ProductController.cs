@@ -27,5 +27,53 @@ namespace ProductMaker.Controllers
         {
             return View();
         }
+
+        public IActionResult InputForm()
+        {
+            return View();
+        }
+
+        public IActionResult ProcessCreate(ProductModel product)
+        {
+            ProductsDAO products = new ProductsDAO();
+            products.Insert(product);
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ShowDetails(int id)
+        {
+            ProductsDAO products = new ProductsDAO();
+            ProductModel product = products.GetProductById(id);
+
+            return View(product);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            ProductsDAO products = new ProductsDAO();
+            ProductModel product = products.GetProductById(id);
+
+            return View("ShowEdit", product);
+        }
+
+        public IActionResult ProcessEdit(ProductModel product)
+        {
+            ProductsDAO products = new ProductsDAO();
+            products.Update(product);
+
+            return View("Index", products.GetAllProducts());
+        }
+
+        public IActionResult Delete(int id) 
+        { 
+            ProductsDAO products = new ProductsDAO();   
+            ProductModel product = products.GetProductById(id);
+            if (product != null)
+            {
+                products.Delete(product);
+            }
+            return View("Index", products.GetAllProducts());
+        }
     }
 }
