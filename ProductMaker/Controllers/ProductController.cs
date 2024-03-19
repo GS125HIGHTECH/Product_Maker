@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProductMaker.Models;
 using ProductMaker.Services;
 
@@ -14,8 +13,8 @@ namespace ProductMaker.Controllers
             return View(products.GetAllProducts());
         }
 
-        public IActionResult SearchResults(string searchTerm) 
-        { 
+        public IActionResult SearchResults(string searchTerm)
+        {
             ProductsDAO products = new ProductsDAO();
 
             List<ProductModel> productList = products.SearchProducts(searchTerm);
@@ -23,7 +22,7 @@ namespace ProductMaker.Controllers
             return View("index", productList);
         }
 
-        public IActionResult SearchForm() 
+        public IActionResult SearchForm()
         {
             return View();
         }
@@ -65,9 +64,9 @@ namespace ProductMaker.Controllers
             return View("Index", products.GetAllProducts());
         }
 
-        public IActionResult Delete(int id) 
-        { 
-            ProductsDAO products = new ProductsDAO();   
+        public IActionResult Delete(int id)
+        {
+            ProductsDAO products = new ProductsDAO();
             ProductModel product = products.GetProductById(id);
             if (product != null)
             {

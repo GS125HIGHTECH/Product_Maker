@@ -1,7 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Elfie.Model;
-using ProductMaker.Models;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using ProductMaker.Models;
 using System.Data.SqlClient;
 
 namespace ProductMaker.Services
