@@ -7,20 +7,51 @@
 <div class="container d-flex flex-wrap">
     @foreach(var item in Model)
     {
-
-        var s = item.Name;
-        var firstWord = s.IndexOf(" ") > -1 ? s.Substring(0, s.IndexOf(" ")) : s;
-
-    <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="https://loremflickr.com/g/240/240/@firstWord?lock=@item.Id" alt="@item.Name">
-            <div class="card-body p-3">
-                <h5 class="card-title">@item.Name</h5>
-                <p class="card-text">@Html.DisplayFor(m => item.Price)</p>
-                <p class="card-text">@item.Description</p>
-                <a href="/product/ShowDetails/@item.Id" class="btn btn-info ">Show details</a>
-                <a href="/product/Edit/@item.Id" class="btn btn-warning ">Edit</a>
-                <a href="/product/Delete/@item.Id" class="btn btn-danger ">Delete</a>
-            </div>
-    </div>
+        <div id="card-number-@item.Id">
+            <partial name="_productCard" model="item"/>
+        </div>
     }
 </div> 
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-group pt-3">
+                    <label for="Id" class="control-label mb-1">Id</label>
+                    <input id="modal-input-id" for="Id" class="form-control" readonly />
+                </div>
+                <div class="form-group pt-3">
+                    <label for="Name" class="control-label mb-1">Name</label>
+                    <input id="modal-input-name" for="Name" class="form-control" />
+                </div>
+                <div class="form-group pt-3">
+                    <label for="Price" class="control-label mb-1">Price</label>
+                    <input id="modal-input-price" for="Price" class="form-control" />
+                    <span for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group pt-3">
+                    <label for="Description" class="control-label mb-1">Description</label>
+                    <input id="modal-input-description" for="Description" class="form-control" />
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button id="save-button" type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

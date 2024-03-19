@@ -6,20 +6,20 @@ namespace ProductMaker.Controllers
 {
     public class ProductController : Controller
     {
+        ProductsDAO repository;
+
+        public ProductController()
+        {
+            repository = new ProductsDAO();
+        }
         public IActionResult Index()
         {
-            ProductsDAO products = new ProductsDAO();
-
-            return View(products.GetAllProducts());
+            return View(repository.GetAllProducts());
         }
 
         public IActionResult SearchResults(string searchTerm)
         {
-            ProductsDAO products = new ProductsDAO();
-
-            List<ProductModel> productList = products.SearchProducts(searchTerm);
-
-            return View("index", productList);
+            return View("index", repository.SearchProducts(searchTerm));
         }
 
         public IActionResult SearchForm()
@@ -42,26 +42,29 @@ namespace ProductMaker.Controllers
 
         public IActionResult ShowDetails(int id)
         {
-            ProductsDAO products = new ProductsDAO();
-            ProductModel product = products.GetProductById(id);
+            return View(repository.GetProductById(id));
+        }
 
-            return View(product);
+        public IActionResult ShowDetailsJSON(int id)
+        {
+            return Json(repository.GetProductById(id));
         }
 
         public IActionResult Edit(int id)
         {
-            ProductsDAO products = new ProductsDAO();
-            ProductModel product = products.GetProductById(id);
-
-            return View("ShowEdit", product);
+            return View("ShowEdit", repository.GetProductById(id));
         }
 
         public IActionResult ProcessEdit(ProductModel product)
         {
-            ProductsDAO products = new ProductsDAO();
-            products.Update(product);
+            repository.Update(product);
+            return View("Index", repository.GetAllProducts());
+        }
 
-            return View("Index", products.GetAllProducts());
+        public IActionResult ProcessEditReturnPartial(ProductModel product)
+        {
+            repository.Update(product);
+            return PartialView("_productCard", product);
         }
 
         public IActionResult Delete(int id)

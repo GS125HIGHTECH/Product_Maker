@@ -1,0 +1,22 @@
+﻿@model ProductMaker.Models.ProductModel
+
+@{
+    var s = Model.Name;
+    var firstWord = s.IndexOf(" ") > -1 ? s.Substring(0, s.IndexOf(" ")) : s;
+}
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="https://loremflickr.com/160/120/@firstWord?lock=@Model.Id" alt="@Model.Name">
+    <div class="card-body p-3">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Html.DisplayFor(m => Model.Price)</p>
+        <div id="buttons-product">
+        <a href="/product/ShowDetails/@Model.Id" class="btn btn-info ">Show details</a>
+        <a href="/product/Edit/@Model.Id" class="btn btn-warning ">Edit</a>
+        <a href="/product/Delete/@Model.Id" class="btn btn-danger ">Delete</a>
+        <button value="@Model.Id" type="button" class="btn btn-light edit-product-button" data-bs-toggle="modal" data-bs-target="#editModal">
+            ModalEdit
+        </button>
+        </div>
+    </div>
+</div>
