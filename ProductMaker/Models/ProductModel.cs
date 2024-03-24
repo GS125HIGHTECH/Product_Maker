@@ -6,7 +6,7 @@ namespace ProductMaker.Models
     public class ProductModel
     {
         [DisplayName("Id")]
-        public required int Id { get; set; }
+        public int Id { get; set; }
         [DisplayName("Product Name")]
         public required string Name { get; set; }
         [DataType(DataType.Currency)]
