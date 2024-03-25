@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductMaker.Models;
 using ProductMaker.Services;
+using System.Web.Http.Description;
 
 namespace ProductMaker.Controllers
 {
@@ -16,9 +17,18 @@ namespace ProductMaker.Controllers
         }
 
         [HttpGet]
-        public ActionResult <IEnumerable<ProductModel>>Index()
+        [ResponseType(typeof(List<ProductModelDTO>))]
+        public IEnumerable<ProductModelDTO> Index()
         {
-            return repository.GetAllProducts();
+            List<ProductModel> products = repository.GetAllProducts();
+            // List<ProductModelDTO> productsDTOs = new List<ProductModelDTO>();
+
+            IEnumerable<ProductModelDTO> productModelDTOs = from p in products select new ProductModelDTO(p);
+            /*foreach (var p in products) 
+            {
+                productsDTOs.Add(new ProductModelDTO(p));
+            }*/
+            return productModelDTOs.ToList();
         }
         [HttpGet("searchproducts/{searchTerm}")]
         public ActionResult <IEnumerable<ProductModel>>SearchResults(string searchTerm)
@@ -27,9 +37,11 @@ namespace ProductMaker.Controllers
         }
 
         [HttpGet("ShowOneProduct/{Id}")]
-        public ActionResult <ProductModel>ShowDetails(int id)
+        public ActionResult <ProductModelDTO>ShowDetails(int id)
         {
-            return repository.GetProductById(id);
+            ProductModel p = repository.GetProductById(id);
+            ProductModelDTO pDTO = new ProductModelDTO(p);
+            return pDTO;
         }
 
         [HttpPost("insertOne")]
