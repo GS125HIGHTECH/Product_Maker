@@ -6,11 +6,11 @@ namespace ProductMaker.Controllers
 {
     public class ProductController : Controller
     {
-        ProductsDAO repository;
+        public IProductDataService repository { get; set; }
 
-        public ProductController()
+        public ProductController(IProductDataService dataService)
         {
-            repository = new ProductsDAO();
+            repository = dataService;
         }
         public IActionResult Index()
         {
